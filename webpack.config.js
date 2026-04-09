@@ -1,6 +1,5 @@
 const path = require('path');
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
@@ -14,6 +13,7 @@ module.exports = {
   },
   devtool: 'source-map',
   devServer: {
+    static: { directory: path.resolve(__dirname) },
     allowedHosts: 'all',
     host: 'localhost',
     hot: true,
@@ -33,10 +33,6 @@ module.exports = {
     ],
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: './index.html',
-      inject: true,
-    }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
     }),
